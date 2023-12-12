@@ -10,12 +10,20 @@ export const config={
 }
 
 export const getAllArticles = (page)=>{
-return api.get(`/articles?page=${page}`,)
+return api.get(`/articles?page=${page}`)
 .then(res =>{
-  console.log(res.request.responseURL)
   return res.data
-}).catch(err =>{
-  console.log(err,'<<<<error');
 })
+}
 
+export const getArticleById= (id) =>{
+  return api.get(`/articles/${id}`)
+  .then(res =>{
+    return res.data
+  })
+}
+
+export function formatDate(dateString) {
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return new Date(dateString).toLocaleDateString([], options);
 }

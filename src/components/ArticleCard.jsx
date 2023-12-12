@@ -1,22 +1,20 @@
 import { BiSolidUpvote } from "react-icons/bi";
 import { LiaComments } from "react-icons/lia";
+import { Link } from "react-router-dom";
+import { formatDate } from "./utils";
 
 export const ArticleCard = ({ article }) => {
 
-function formatDate(dateString){
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString([],options);
-}
-
-
 	return (
 		<>
-			<img src={article.article_img_url} />
-			<h4>
-				{article.title}
-				<br />
-			<span>	{formatDate(article.created_at)} </span>
-			</h4>
+			<Link to={`/articles/${article.article_id}` } article_id = {article.article_id}>
+				<img src={article.article_img_url} />
+				<h4>
+					{article.title}
+					<br />
+					<span> {formatDate(article.created_at)} </span>
+				</h4>
+			</Link>
 
 			<p>
 				By:
