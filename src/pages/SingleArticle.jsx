@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { formatDate, getArticleById } from "../components/utils";
 import { LiaComments } from "react-icons/lia";
-import { BiSolidUpvote } from "react-icons/bi";
+import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
 
 export const SingleArticle = () => {
 	const { article_id } = useParams();
@@ -29,10 +29,12 @@ export const SingleArticle = () => {
 						<time> {formatDate(singleArticle.created_at)}</time>
 					</div>
 					<p>{singleArticle.body}</p>
-					<BiSolidUpvote />
+					<BiSolidUpvote className="vote-icon"/>
 					<span>{singleArticle.votes}</span>
-					<br />
+					<BiSolidDownvote className="vote-icon"/>
+          <br />
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
+          
 				</article>
 				<Link to={"/articles"}>
 					<button>Back to articles</button>
