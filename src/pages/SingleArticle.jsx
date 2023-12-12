@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { formatDate, getArticleById } from "../components/utils";
 import { LiaComments } from "react-icons/lia";
 import { BiSolidUpvote } from "react-icons/bi";
@@ -8,7 +8,7 @@ export const SingleArticle = () => {
 	const { article_id } = useParams();
 	const [singleArticle, setSingleArticle] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
-	const navigate = useNavigate();
+
 	useEffect(() => {
 		setIsLoading(true);
 		getArticleById(article_id).then(({ article }) => {
@@ -34,13 +34,9 @@ export const SingleArticle = () => {
 					<br />
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
 				</article>
-				<button
-					onClick={() => {
-						navigate("/articles");
-					}}
-				>
-					Back to articles
-				</button>
+				<Link to={"/articles"}>
+					<button>Back to articles</button>
+				</Link>
 			</>
 		);
 };
