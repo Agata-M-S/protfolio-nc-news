@@ -47,6 +47,13 @@ img{
 .curr-page{
   background-color:  red;
 }
+.box-div{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border: 1px solid blue;
+  margin: 15px 
+}
 
 
 .vote-icon:hover{

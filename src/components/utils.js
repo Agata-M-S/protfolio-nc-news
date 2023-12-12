@@ -23,7 +23,14 @@ export const getArticleById= (id) =>{
   })
 }
 
+export const getCommentsByArticleId = (id)=>{
+  return api.get(`/articles/${id}/comments`)
+  .then(res =>{
+    return res.data
+  }).catch(err =>{console.log(err);})
+}
+
 export function formatDate(dateString) {
-  const options = { year: "numeric", month: "short", day: "numeric" };
+  const options = { year: "numeric", month: "short", day: "numeric", hour: 'numeric', minute: 'numeric'};
   return new Date(dateString).toLocaleDateString([], options);
 }

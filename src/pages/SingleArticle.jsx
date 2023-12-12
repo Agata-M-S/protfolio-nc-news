@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { formatDate, getArticleById } from "../components/utils";
 import { LiaComments } from "react-icons/lia";
 import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
+import { Comments } from "../components/Comments";
 
 export const SingleArticle = () => {
 	const { article_id } = useParams();
@@ -36,6 +37,7 @@ export const SingleArticle = () => {
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
           
 				</article>
+        <Comments article_id = {singleArticle.article_id}/>
 				<Link to={"/articles"}>
 					<button>Back to articles</button>
 				</Link>
