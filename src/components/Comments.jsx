@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
 import { formatDate, getCommentsByArticleId } from "./utils";
-import { LiaComments } from "react-icons/lia";
-import {
-	BiSolidUpvote,
-	BiChat,
-	BiChevronsDown,
-	BiChevronsUp,
-} from "react-icons/bi";
+import { BiChat, BiChevronsDown, BiChevronsUp } from "react-icons/bi";
 import { Box } from "./Box";
 import {} from "react-icons/bi";
 
 export const Comments = ({ article_id }) => {
 	const [comments, setComments] = useState([]);
+  const [isLoading, setIsLoading] =useState(false)
 
 	useEffect(() => {
+    setIsLoading(true)
 		getCommentsByArticleId(article_id).then((data) => {
 			setComments(data.comments);
+      setIsLoading(false)
 		});
 	}, []);
-
+if(isLoading){return  <section className="loading-screen">results are loading</section>;}
 	return (
 		<ul>
 			{comments.map((comment) => {
