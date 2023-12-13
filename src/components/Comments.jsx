@@ -6,12 +6,11 @@ import {} from "react-icons/bi";
 
 export const Comments = ({ article_id }) => {
 	const [comments, setComments] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
   const [errorClass, setErrorClass] = useState('hidden')
 
 	useEffect(() => {
     setErrorClass('hidden')
-		setIsLoading(true);
 		getCommentsByArticleId(article_id).then((data) => {
 			setComments(data.comments);
 			setIsLoading(false);
@@ -21,7 +20,7 @@ export const Comments = ({ article_id }) => {
     });
 	}, []);
 	if (isLoading) {
-		return <section className="loading-screen">results are loading</section>;
+		return <section className="loading-screen">comments are loading</section>;
 	}
 	return (
 		<ul>

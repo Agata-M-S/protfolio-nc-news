@@ -5,20 +5,22 @@ import ReactPaginate from "react-paginate";
 
 export const Articles = () => {
 	const [articles, setArticles] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [page, setPage] = useState(1);
 	const [nextPage, setNextPage] = useState(2);
 	const [previousPage, setPreviousPage] = useState(0);
 
 	useEffect(() => {
-		setIsLoading(true);
 
 		getAllArticles(page).then(({ articles }) => {
 			setNextPage(page + 1);
 			setPreviousPage(page - 1);
 			setArticles(articles);
 			setIsLoading(false);
-		});
+		}).catch(()=>{
+      setIsLoading(false)
+      return <section><p className="show">Couldn't load the articles. Try again!</p></section>
+    })
 	}, [page]);
 
 	const handlePageClick = (e) => {
@@ -56,6 +58,7 @@ export const Articles = () => {
 					nextLabel="Next >"
 					onClick={handlePageClick}
           activeClassName="active"
+
 					previousLabel="< previous"
 					renderOnZeroPageCount={null}
 				/>

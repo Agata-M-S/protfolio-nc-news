@@ -8,18 +8,26 @@ import { Comments } from "../components/Comments";
 export const SingleArticle = () => {
 	const { article_id } = useParams();
 	const [singleArticle, setSingleArticle] = useState({});
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [isClickedUp, setIsClickedUp] = useState(false);
 	const [isClickedDown, setIsClickedDown] = useState(false);
-  const [voteClassDown, setVoteClassDown]  = useState('vote-icon-default') 
-  const [voteClassUp, setVoteClassUp] = useState('vote-icon-default')
- const [errorClass, setErrorClass] = useState('hidden')
+	const [voteClassDown, setVoteClassDown] = useState("vote-icon-default");
+	const [voteClassUp, setVoteClassUp] = useState("vote-icon-default");
+	const [errorClass, setErrorClass] = useState("hidden");
 	useEffect(() => {
-		setIsLoading(true);
-		getArticleById(article_id).then(({ article }) => {
-			setSingleArticle(article);
-			setIsLoading(false);
-		});
+		getArticleById(article_id)
+			.then(({ article }) => {
+				setSingleArticle(article);
+				setIsLoading(false);
+			})
+			.catch(() => {
+				setIsLoading(false);
+				return (
+					<section className="show">
+						<p>can't load athe article</p>
+					</section>
+				);
+			});
 	}, []);
 	if (isLoading) {
 		return <section className="loading-screen">results are loading</section>;
@@ -37,28 +45,28 @@ export const SingleArticle = () => {
 					<BiSolidUpvote
 						className={voteClassUp}
 						onClick={() => {
-              setErrorClass('hidden')
+							setErrorClass("hidden");
 							if (!isClickedUp && !isClickedDown) {
-                setVoteClassUp('vote-icon-clicked')
+								setVoteClassUp("vote-icon-clicked");
 								setSingleArticle((currArticle) => {
 									setIsClickedUp(true);
 									return { ...currArticle, votes: currArticle.votes + 1 };
 								});
-								patchVotes(singleArticle.article_id, 1).catch((err)=>{
-                  return setErrorClass(()=>{
-                    setErrorClass('show')
-                  })
-                });
+								patchVotes(singleArticle.article_id, 1).catch((err) => {
+									return setErrorClass(() => {
+										setErrorClass("show");
+									});
+								});
 							} else if (isClickedUp) {
-                setVoteClassUp('vote-icon-default')
+								setVoteClassUp("vote-icon-default");
 								setSingleArticle((currArticle) => {
 									setIsClickedUp(false);
 									return { ...currArticle, votes: currArticle.votes - 1 };
 								});
 								patchVotes(singleArticle.article_id, -1).catch((err) => {
-                  return setErrorClass(()=>{
-                    setErrorClass('show')
-                  })
+									return setErrorClass(() => {
+										setErrorClass("show");
+									});
 								});
 							}
 						}}
@@ -67,34 +75,34 @@ export const SingleArticle = () => {
 					<BiSolidDownvote
 						className={voteClassDown}
 						onClick={() => {
-              setErrorClass('hidden')
+							setErrorClass("hidden");
 							if (!isClickedDown && !isClickedUp) {
-              setVoteClassDown('vote-icon-clicked')
+								setVoteClassDown("vote-icon-clicked");
 								setSingleArticle((currArticle) => {
 									setIsClickedDown(true);
 									return { ...currArticle, votes: currArticle.votes - 1 };
 								});
 								patchVotes(singleArticle.article_id, -1).catch((err) => {
-										return setErrorClass(()=>{
-                  setErrorClass('show')
-                })
+									return setErrorClass(() => {
+										setErrorClass("show");
+									});
 								});
 							} else if (isClickedDown) {
 								setSingleArticle((currArticle) => {
-                  setVoteClassDown( 'vote-icon-default')
+									setVoteClassDown("vote-icon-default");
 									setIsClickedDown(false);
 									return { ...currArticle, votes: currArticle.votes + 1 };
 								});
 								patchVotes(singleArticle.article_id, +1).catch((err) => {
-                  return setErrorClass(()=>{
-                    setErrorClass('show')
-                  })
+									return setErrorClass(() => {
+										setErrorClass("show");
+									});
 								});
 							}
 						}}
 					/>
 					<br />
-          <p className={errorClass}>couldn't update the votes</p>
+					<p className={errorClass}>couldn't update the votes</p>
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
 				</article>
 				<Comments article_id={article_id} />
