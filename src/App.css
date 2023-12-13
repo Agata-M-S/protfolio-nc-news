@@ -64,7 +64,9 @@ color: rgb(255, 255, 255);
 
 .vote-icon-default:hover,
 .vote-icon-clicked:hover{
-  color: pink
+  background-color: rgb(94, 68, 86);
+  border-radius: 50%;
+  box-shadow: 0px 1px 10px 2px rgb(94, 68, 86);
 }
 
 .hidden{
