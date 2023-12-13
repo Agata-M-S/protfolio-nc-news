@@ -55,7 +55,23 @@ img{
   margin: 15px 
 }
 
+.vote-icon-default{
+color: rgb(255, 255, 255);
+}
+.vote-icon-clicked{
+  color: red;
+}
 
-.vote-icon:hover{
-color: green;
+.vote-icon-default:hover,
+.vote-icon-clicked:hover{
+  color: pink
+}
+
+.hidden{
+  display: none;
+}
+
+.show{
+  display: block;
+  color: red;
 }

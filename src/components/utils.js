@@ -30,7 +30,14 @@ export const getCommentsByArticleId = (id)=>{
   }).catch(err =>{console.log(err);})
 }
 
+export const patchVotes = (id, num)=> {
+  return api.patch(`/articles/${id}`, {inc_votes: num}).then((res)=>{return res.data}
+)}
+
 export function formatDate(dateString) {
   const options = { year: "numeric", month: "short", day: "numeric", hour: 'numeric', minute: 'numeric'};
   return new Date(dateString).toLocaleDateString([], options);
 }
+
+
+

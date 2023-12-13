@@ -3,7 +3,6 @@ import { getAllArticles } from "../components/utils";
 import { ArticleCard } from "../components/ArticleCard";
 import ReactPaginate from "react-paginate";
 
-
 export const Articles = () => {
 	const [articles, setArticles] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -50,23 +49,23 @@ export const Articles = () => {
 	} else
 		return (
 			<>
-				<div>
-					<ReactPaginate
-						containerClassName="paginate"
-						breakLabel="..."
-						nextLabel="Next >"
-						onClick={handlePageClick}
-						previousLabel="< previous"
-						renderOnZeroPageCount={null}
-					/>
-				</div>
+				<div> </div>
+				<ReactPaginate
+					containerClassName="paginate"
+					breakLabel="..."
+					nextLabel="Next >"
+					onClick={handlePageClick}
+          activeClassName="active"
+					previousLabel="< previous"
+					renderOnZeroPageCount={null}
+				/>
 
 				<article className="grid-container">
 					{articles.map((article) => {
 						return (
-								<li key={article.article_id}>
-									<ArticleCard article={article} />
-								</li>
+							<li key={article.article_id}>
+								<ArticleCard article={article} />
+							</li>
 						);
 					})}
 				</article>
