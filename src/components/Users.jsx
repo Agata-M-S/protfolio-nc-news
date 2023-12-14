@@ -6,13 +6,14 @@ export const Users = () => {
 	const [users, setUsers] = useState([]);
 	const { user, setUser } = useContext(UserContext);
 	const [className, setClassName] = useState("hidden");
+  const [isLoading, setIsLoading] =useState(true)
 	useEffect(() => {
 		getAllUsers().then(({ users }) => {
+      setIsLoading(false)
 			setUsers(users);
 		});
 	}, []);
-
-	console.log(user);
+  if (isLoading) {return <p>loading users</p>}
 	return (
 		<div className="flex">
 			<select
