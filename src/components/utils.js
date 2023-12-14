@@ -34,6 +34,23 @@ export const patchVotes = (id, num)=> {
   return api.patch(`/articles/${id}`, {inc_votes: num}).then((res)=>{return res.data}
 )}
 
+export const getAllUsers = ()=>{
+  return api.get('/users').then((res)=>{return res.data})
+}
+
+export const postComment =(id, username, commentText) =>{
+  const body = {
+    username: username,
+    body: commentText
+  }
+  return api.post(`/articles/${id}/comments`, body).then((res)=>{return res.data}
+  )
+}
+
+export const deleteCommentById= (id)=>{
+  return api.delete(`/comments/${id}`)
+}
+
 export const getTopics = () =>{
   return api.get('/topics').then(res =>{
     return res.data
