@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { deleteCommentById } from "./utils";
+import { Error } from "./Error.jsx";
 
 export const DeleteComment = ({ children, comment_id }) => {
-  const [isDisabled,setIsDisabled] = useState(false)
-  const [buttonText, setButtonText] = useState('Delete')
+	const [isDisabled, setIsDisabled] = useState(false);
+	const [buttonText, setButtonText] = useState("Delete");
+	const [apiErr, setApiErr] = useState(null);
 	return (
 		<>
 			{children}
-			<button disabled={isDisabled}
+			{apiErr ? <Error message={apiErr.msg} /> : null}
+			<button
+				disabled={isDisabled}
 				onClick={() => {
-          setIsDisabled(true)
-          setButtonText('Deleting...please wait')
-					deleteCommentById(comment_id);
-          
-
+					setIsDisabled(true);
+					setButtonText("Deleting...please wait");
+					deleteCommentById(comment_id).catch((err) => {
+						setApiErr({ msg: "something went wrong" });
+						setIsDisabled(false);
+						setButtonText("Delete");
+					});
 				}}
 			>
 				{buttonText}

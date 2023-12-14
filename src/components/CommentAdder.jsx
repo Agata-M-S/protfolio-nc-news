@@ -8,6 +8,7 @@ export const CommentAdder = ({ article_id, setComments, setSingleArticle }) => {
 	const [input, setInput] = useState("");
 	const { user } = useContext(UserContext);
 	const [apiErr, setApiErr] = useState(null);
+  const [isPosting, setIsPosting]=useState(false)
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -19,9 +20,11 @@ export const CommentAdder = ({ article_id, setComments, setSingleArticle }) => {
 		} else if (!input) {
 			Promise.reject({ status: 400, msg: "'you can't post an empty comment" });
 		} else {
+      setIsPosting(true)
 			postComment(article_id, user, input)
 				.then((res) => {
 					setInput("");
+          setIsPosting(false)
 					setSingleArticle((curr) => {
 						return [...(curr.comment_count + 1)];
 					});
@@ -33,11 +36,13 @@ export const CommentAdder = ({ article_id, setComments, setSingleArticle }) => {
 							created_at: res.comment.created_at,
 							votes: res.comment.votes,
 						};
+            setIsPosting(false)
 						return [newComment, ...currComments];
 					});
 				})
 				.catch((err) => {
 					setApiErr(err.response.msg);
+          setIsPosting(false)
 					console.log(err.response, "<<<<<");
 				});
 		}
@@ -56,6 +61,7 @@ export const CommentAdder = ({ article_id, setComments, setSingleArticle }) => {
 							setInput(e.target.value);
 						}}
 					/>
+          {isPosting ? <p>posting your comment</p> : null}
 					{apiErr ? <Error message={apiErr} /> : null}
 					<br />
 					<button
