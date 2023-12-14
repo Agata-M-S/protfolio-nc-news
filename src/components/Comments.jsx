@@ -3,12 +3,18 @@ import { formatDate, getCommentsByArticleId } from "./utils";
 import { BiChat, BiChevronsDown, BiChevronsUp } from "react-icons/bi";
 import { Box } from "./Box";
 import { CommentAdder } from "./CommentAdder";
+import { DeleteComment } from "./DeleteComment";
+import { useContext } from "react";
+import { UserContext } from "../contexts/userContext.jsx";
 
-
-export const Comments = ({ article_id }) => {
+export const Comments = ({
+	article_id,
+	setReload /*setSingleArticle, singleArticle*/,
+}) => {
 	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorClass, setErrorClass] = useState("hidden");
+	const { user } = useContext(UserContext);
 
 	useEffect(() => {
 		setErrorClass("hidden");
@@ -21,7 +27,7 @@ export const Comments = ({ article_id }) => {
 				setIsLoading(false);
 				setErrorClass("show");
 			});
-	}, []);
+	}, [comments]);
 
 	if (isLoading) {
 		return <section className="loading-screen">comments are loading</section>;
@@ -29,7 +35,12 @@ export const Comments = ({ article_id }) => {
 
 	return (
 		<>
-			<CommentAdder article_id={article_id} comments={comments} setComments={setComments} />
+			<CommentAdder
+				setReload={setReload}
+				article_id={article_id}
+				comments={comments}
+				setComments={setComments}
+			/>
 			<ul>
 				<p className={errorClass}>Can't load comments</p>
 				{comments.map((comment) => {
@@ -48,6 +59,12 @@ export const Comments = ({ article_id }) => {
 									<span>{comment.votes}</span>
 									<BiChevronsDown />
 								</div>
+								{user === comment.author ? (
+									<DeleteComment
+										comment_id={comment.comment_id}
+										setReload={setReload}
+									/>
+								) : null}
 							</Box>
 						</li>
 					);
