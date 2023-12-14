@@ -77,3 +77,21 @@ color: rgb(255, 255, 255);
   display: block;
   color: red;
 }
+
+textarea {
+  resize: none;
+  min-width: 50vw;
+  min-height: 20vh;
+}
+.flex{
+  display: flex;
+  justify-content: space-between;
+
+}
+.flex>p{
+    margin: 0;
+}
+
+select{
+  padding: 10px;
+}

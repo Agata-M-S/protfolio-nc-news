@@ -34,6 +34,19 @@ export const patchVotes = (id, num)=> {
   return api.patch(`/articles/${id}`, {inc_votes: num}).then((res)=>{return res.data}
 )}
 
+export const getAllUsers = ()=>{
+  return api.get('/users').then((res)=>{return res.data})
+}
+
+export const postComment =(id, username, commentText) =>{
+  const body = {
+    username: username,
+    body: commentText
+  }
+  return api.post(`/articles/${id}/comments`, body).then((res)=>{return res.data}
+  )
+}
+
 export function formatDate(dateString) {
   const options = { year: "numeric", month: "short", day: "numeric", hour: 'numeric', minute: 'numeric'};
   return new Date(dateString).toLocaleDateString([], options);
