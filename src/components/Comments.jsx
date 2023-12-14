@@ -7,7 +7,10 @@ import { DeleteComment } from "./DeleteComment";
 import { useContext } from "react";
 import { UserContext } from "../contexts/userContext.jsx";
 
-export const Comments = ({ article_id, setReload /*setSingleArticle, singleArticle*/ }) => {
+export const Comments = ({
+	article_id,
+	setReload /*setSingleArticle, singleArticle*/,
+}) => {
 	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorClass, setErrorClass] = useState("hidden");
@@ -60,8 +63,6 @@ export const Comments = ({ article_id, setReload /*setSingleArticle, singleArtic
 									<DeleteComment
 										comment_id={comment.comment_id}
 										setReload={setReload}
-                    // setSingleArticle={setSingleArticle}
-                    // singleArticle={singleArticle}
 									/>
 								) : null}
 							</Box>
