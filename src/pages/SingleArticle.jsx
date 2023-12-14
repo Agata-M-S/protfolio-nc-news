@@ -28,7 +28,7 @@ export const SingleArticle = () => {
 					</section>
 				);
 			});
-	}, []);
+	}, [singleArticle]);
 	if (isLoading) {
 		return <section className="loading-screen">results are loading</section>;
 	} else
@@ -105,7 +105,7 @@ export const SingleArticle = () => {
 					<p className={errorClass}>couldn't update the votes</p>
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
 				</article>
-				<Comments article_id={article_id} />
+				<Comments article_id={article_id} setSingleArticle={setSingleArticle} singleArticle={singleArticle}/>
 				<Link to={"/articles"}>
 					<button>Back to articles</button>
 				</Link>

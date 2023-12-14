@@ -47,6 +47,10 @@ export const postComment =(id, username, commentText) =>{
   )
 }
 
+export const deleteCommentById= (id)=>{
+  return api.delete(`/comments/${id}`)
+}
+
 export function formatDate(dateString) {
   const options = { year: "numeric", month: "short", day: "numeric", hour: 'numeric', minute: 'numeric'};
   return new Date(dateString).toLocaleDateString([], options);

@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { postComment } from "./utils.js";
 import { UserContext } from "../contexts/userContext.jsx";
 import { Error } from "./Error.jsx";
 
-export const CommentAdder = ({ article_id, setComments }) => {
+export const CommentAdder = ({ article_id, setComments, setSingleArticle }) => {
 	const [input, setInput] = useState("");
 	const { user } = useContext(UserContext);
 	const [apiErr, setApiErr] = useState(null);
@@ -12,18 +12,20 @@ export const CommentAdder = ({ article_id, setComments }) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (!user) {
-			console.log("no user");
 			Promise.reject({
 				status: 400,
 				msg: "you need to be logged in to post a comment",
 			});
 		} else if (!input) {
-			console.log("no input");
 			Promise.reject({ status: 400, msg: "'you can't post an empty comment" });
 		} else {
 			postComment(article_id, user, input)
 				.then((res) => {
 					setInput("");
+					setSingleArticle((curr) => {
+						return [...(curr.comment_count + 1)];
+					});
+
 					setComments((currComments) => {
 						const newComment = {
 							author: res.comment.author,
@@ -36,7 +38,7 @@ export const CommentAdder = ({ article_id, setComments }) => {
 				})
 				.catch((err) => {
 					setApiErr(err.response.msg);
-					console.log(err.response.status, "<<<<<");
+					console.log(err.response, "<<<<<");
 				});
 		}
 	};
