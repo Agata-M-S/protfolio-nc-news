@@ -7,7 +7,7 @@ import { DeleteComment } from "./DeleteComment";
 import { useContext } from "react";
 import { UserContext } from "../contexts/userContext.jsx";
 
-export const Comments = ({ article_id }) => {
+export const Comments = ({ article_id, setReload /*setSingleArticle, singleArticle*/ }) => {
 	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorClass, setErrorClass] = useState("hidden");
@@ -33,6 +33,7 @@ export const Comments = ({ article_id }) => {
 	return (
 		<>
 			<CommentAdder
+				setReload={setReload}
 				article_id={article_id}
 				comments={comments}
 				setComments={setComments}
@@ -56,7 +57,12 @@ export const Comments = ({ article_id }) => {
 									<BiChevronsDown />
 								</div>
 								{user === comment.author ? (
-									<DeleteComment comment_id={comment.comment_id} />
+									<DeleteComment
+										comment_id={comment.comment_id}
+										setReload={setReload}
+                    // setSingleArticle={setSingleArticle}
+                    // singleArticle={singleArticle}
+									/>
 								) : null}
 							</Box>
 						</li>

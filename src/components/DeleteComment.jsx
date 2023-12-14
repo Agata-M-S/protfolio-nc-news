@@ -2,7 +2,12 @@ import { useState } from "react";
 import { deleteCommentById } from "./utils";
 import { Error } from "./Error.jsx";
 
-export const DeleteComment = ({ children, comment_id }) => {
+export const DeleteComment = ({
+	children,
+	comment_id,
+	setReload,
+
+}) => {
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [buttonText, setButtonText] = useState("Delete");
 	const [apiErr, setApiErr] = useState(null);
@@ -15,6 +20,7 @@ export const DeleteComment = ({ children, comment_id }) => {
 				onClick={() => {
 					setIsDisabled(true);
 					setButtonText("Deleting...please wait");
+					setReload(true);
 					deleteCommentById(comment_id).catch((err) => {
 						setApiErr({ msg: "something went wrong" });
 						setIsDisabled(false);

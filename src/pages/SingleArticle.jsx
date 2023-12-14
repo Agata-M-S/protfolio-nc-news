@@ -14,7 +14,10 @@ export const SingleArticle = () => {
 	const [voteClassDown, setVoteClassDown] = useState("vote-icon-default");
 	const [voteClassUp, setVoteClassUp] = useState("vote-icon-default");
 	const [errorClass, setErrorClass] = useState("hidden");
+	const [reload, setReload] = useState(false);
+
 	useEffect(() => {
+    setReload(false)
 		getArticleById(article_id)
 			.then(({ article }) => {
 				setSingleArticle(article);
@@ -28,7 +31,8 @@ export const SingleArticle = () => {
 					</section>
 				);
 			});
-	}, [singleArticle]);
+	}, [ reload]);
+  
 	if (isLoading) {
 		return <section className="loading-screen">results are loading</section>;
 	} else
@@ -78,6 +82,7 @@ export const SingleArticle = () => {
 							setErrorClass("hidden");
 							if (!isClickedDown && !isClickedUp) {
 								setVoteClassDown("vote-icon-clicked");
+                
 								setSingleArticle((currArticle) => {
 									setIsClickedDown(true);
 									return { ...currArticle, votes: currArticle.votes - 1 };
@@ -105,7 +110,12 @@ export const SingleArticle = () => {
 					<p className={errorClass}>couldn't update the votes</p>
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
 				</article>
-				<Comments article_id={article_id} setSingleArticle={setSingleArticle} singleArticle={singleArticle}/>
+				<Comments
+					article_id={article_id}
+					setSingleArticle={setSingleArticle}
+					singleArticle={singleArticle}
+          setReload = {setReload}
+				/>
 				<Link to={"/articles"}>
 					<button>Back to articles</button>
 				</Link>
