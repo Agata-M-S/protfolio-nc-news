@@ -13,11 +13,13 @@ export const CommentAdder = ({
 	const [input, setInput] = useState("");
 	const { user } = useContext(UserContext);
 	const [apiErr, setApiErr] = useState(null);
+  const [isDisabled, setIsDisabled] =useState(false)
 	const [isPosting, setIsPosting] = useState(false);
   
   
 	const handleSubmit = (event) => {
 		event.preventDefault();
+    
 		if (!user) {
 			Promise.reject({
 				status: 400,
@@ -26,6 +28,7 @@ export const CommentAdder = ({
 		} else if (!input) {
 			Promise.reject({ status: 400, msg: "'you can't post an empty comment" });
 		} else {
+      setIsDisabled(true)
 			setIsPosting(true);
 			setReload(true);
 			postComment(article_id, user, input)
@@ -43,6 +46,7 @@ export const CommentAdder = ({
 							created_at: res.comment.created_at,
 							votes: res.comment.votes,
 						};
+            setIsDisabled(false)
 						setIsPosting(false);
 						return [newComment, ...currComments];
 					});
@@ -71,14 +75,15 @@ export const CommentAdder = ({
 					{isPosting ? <p>posting your comment</p> : null}
 					{apiErr ? <Error message={apiErr} /> : null}
 					<br />
-					<button
-						onClick={() => {
+					<button disabled={isDisabled}
+						onClick={(e) => {
 							if (!user) {
 								setApiErr("you need to be logged in to post a comment");
 							} else if (!input) {
 								setApiErr("you can't post an empty comment");
 								console.log("no input");
 							}
+              
 						}}
 						onBlur={() => {
 							setApiErr(null);
