@@ -6,7 +6,7 @@ export const Topics = () => {
 	const [topics, setTopics] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [chosen, setChosen] = useState(false);
-const [topic, setTopic] =useState()
+	const [topic, setTopic] = useState();
 
 	useEffect(() => {
 		getTopics().then((data) => {
@@ -23,18 +23,23 @@ const [topic, setTopic] =useState()
 				{topics.map((topic) => {
 					return (
 						<div
+							key={topic.slug}
 							onClick={() => {
 								setChosen(true);
-                setTopic(topic.slug)
+								setTopic(topic.slug);
 							}}
 						>
-							<p>{topic.slug}</p>
-							<p>{topic.description}</p>
+							<p>
+								{topic.slug} <br />
+								<cite>
+									<q>{topic.description}</q>
+								</cite>
+							</p>
 						</div>
 					);
 				})}
 			</div>
-			{chosen ? <Articles topic={topic}/> : null}
+			{chosen ? <Articles topic={topic} /> : null}
 		</>
 	);
 };

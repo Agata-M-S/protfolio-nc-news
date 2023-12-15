@@ -105,14 +105,25 @@ select{
   align-items: center;
   
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, auto);
   grid-template-rows: repeat(2fr);
+  column-gap: 10px;
   /* flex-wrap: wrap; */
   justify-content: space-evenly;
   
 }
 .topic-grid>div {
+  align-self:  baseline;
+ 
+  width: 25vw;
   border: 1px solid;
   padding: 10px;
   cursor: pointer;
+}
+.topic-grid>div>p{
+  text-transform: uppercase;
+}
+.topic-grid>div>p>cite{
+  text-transform: capitalize;
+  color: green;
 }
