@@ -5,7 +5,7 @@ import { LiaComments } from "react-icons/lia";
 import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
 import { Comments } from "../components/Comments";
 
-export const SingleArticle = () => {
+export const SingleArticle = ({page}) => {
 	const { article_id } = useParams();
 	const [singleArticle, setSingleArticle] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +15,7 @@ export const SingleArticle = () => {
 	const [voteClassUp, setVoteClassUp] = useState("vote-icon-default");
 	const [errorClass, setErrorClass] = useState("hidden");
 	const [reload, setReload] = useState(false);
-
+  console.log(page);
 	useEffect(() => {
     setReload(false)
 		getArticleById(article_id)
@@ -116,7 +116,7 @@ export const SingleArticle = () => {
 					singleArticle={singleArticle}
           setReload = {setReload}
 				/>
-				<Link to={"/articles"}>
+				<Link to={`/articles?page=${page}`}>
 					<button>Back to articles</button>
 				</Link>
 			</>

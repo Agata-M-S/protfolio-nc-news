@@ -9,8 +9,13 @@ export const config={
   }
 }
 
-export const getAllArticles = (page)=>{
-return api.get(`/articles?page=${page}`)
+export const getAllArticles = (page, topic, sortBy, order )=>{
+  const params = {
+    topic: topic,
+    sort_by: sortBy,
+    order: order
+  }
+return api.get(`/articles?page=${page}`, {params})
 .then(res =>{
   return res.data
 })
@@ -49,6 +54,12 @@ export const postComment =(id, username, commentText) =>{
 
 export const deleteCommentById= (id)=>{
   return api.delete(`/comments/${id}`)
+}
+
+export const getTopics = () =>{
+  return api.get('/topics').then(res =>{
+    return res.data
+  })
 }
 
 export function formatDate(dateString) {
