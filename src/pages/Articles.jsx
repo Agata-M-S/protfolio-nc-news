@@ -12,8 +12,10 @@ export const Articles = ({ topic }) => {
 	const [previousPage, setPreviousPage] = useState(0);
   const [sortBy, setSortBy]=useState('')
   const [order, setOrder] =useState('DESC')
-console.log(sortBy);
+
+
 	useEffect(() => {
+    setIsLoading(true)
 		getAllArticles(page, topic, sortBy, order)
 			.then(({ articles }) => {
 				setNextPage(page + 1);
@@ -60,7 +62,7 @@ console.log(sortBy);
 		return (
 			<>
 				<div>
-					<SortArticles  sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
+					<SortArticles  setSortBy={setSortBy} setOrder={setOrder}/>
 				</div>
 				<ReactPaginate
 					containerClassName="paginate"

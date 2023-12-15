@@ -15,7 +15,7 @@ export const Topics = () => {
 		});
 	}, []);
 	if (isLoading) {
-		<p className="loading-screen">Loading...</p>;
+		return <section className="loading-screen">Loading...</section>;
 	}
 	return (
 		<>
@@ -30,14 +30,20 @@ export const Topics = () => {
 							}}
 						>
 							<p>
-								{topic.slug} <br />
+								{topic.slug} </p>
 								<cite>
 									<q>{topic.description}</q>
 								</cite>
-							</p>
+							
 						</div>
 					);
 				})}
+        <div 
+							onClick={() => {
+								setChosen(true);
+								setTopic(null);
+							}}
+						> See All Articles</div>
 			</div>
 			{chosen ? <Articles topic={topic} /> : null}
 		</>
