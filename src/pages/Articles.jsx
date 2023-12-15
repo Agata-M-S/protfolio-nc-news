@@ -3,7 +3,7 @@ import { getAllArticles } from "../components/utils";
 import { ArticleCard } from "../components/ArticleCard";
 import ReactPaginate from "react-paginate";
 
-export const Articles = () => {
+export const Articles = ({topic}) => {
 	const [articles, setArticles] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [page, setPage] = useState(1);
