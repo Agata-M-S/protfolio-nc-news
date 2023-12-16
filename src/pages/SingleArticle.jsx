@@ -4,6 +4,7 @@ import { formatDate, getArticleById, patchVotes } from "../components/utils";
 import { LiaComments } from "react-icons/lia";
 import { BiSolidUpvote, BiSolidDownvote } from "react-icons/bi";
 import { Comments } from "../components/Comments";
+import { Error } from "../components/Error";
 
 export const SingleArticle = () => {
 	const { article_id } = useParams();
@@ -15,26 +16,27 @@ export const SingleArticle = () => {
 	const [voteClassUp, setVoteClassUp] = useState("vote-icon-default");
 	const [errorClass, setErrorClass] = useState("hidden");
 	const [reload, setReload] = useState(false);
+	const [apiErr, setApiErr] = useState(false);
 
 	useEffect(() => {
-    setReload(false)
+		setReload(false);
 		getArticleById(article_id)
 			.then(({ article }) => {
 				setSingleArticle(article);
 				setIsLoading(false);
 			})
-			.catch(() => {
+			.catch((err) => {
+				console.log(err);
+				if (!err.response) setApiErr(err.message);
 				setIsLoading(false);
-				return (
-					<section className="show">
-						<p>can't load athe article</p>
-					</section>
-				);
+				setApiErr(err.response.data.msg);
 			});
 	}, [reload]);
-  
+
 	if (isLoading) {
 		return <section className="loading-screen">results are loading</section>;
+	} else if (apiErr) {
+		return <Error message={apiErr} />;
 	} else
 		return (
 			<>
@@ -82,7 +84,7 @@ export const SingleArticle = () => {
 							setErrorClass("hidden");
 							if (!isClickedDown && !isClickedUp) {
 								setVoteClassDown("vote-icon-clicked");
-                
+
 								setSingleArticle((currArticle) => {
 									setIsClickedDown(true);
 									return { ...currArticle, votes: currArticle.votes - 1 };
@@ -114,7 +116,7 @@ export const SingleArticle = () => {
 					article_id={article_id}
 					setSingleArticle={setSingleArticle}
 					singleArticle={singleArticle}
-          setReload = {setReload}
+					setReload={setReload}
 				/>
 				<Link to={`/articles`}>
 					<button>Back to articles</button>

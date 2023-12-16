@@ -9,6 +9,23 @@ body {
 }
 
 @media (max-width: 500px) {
+  article>p{
+    font-size: 0.7em !important;
+  }
+  article > h1 {
+    /* margin-bottom: 5px; */
+    font-size: 1.5em !important;
+  }
+  article > div>p {
+    /* margin-bottom: 5px; */
+    font-size: 0.5em;
+  }
+
+  textarea {
+    min-height: 7vh !important;
+    min-width: 60vw !important;
+  }
+
 	.grid-container {
 		display: grid;
 		list-style: none;
