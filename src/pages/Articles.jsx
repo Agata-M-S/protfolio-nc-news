@@ -38,7 +38,7 @@ export const Articles = ({ topic }) => {
 		return (
 			<>
 				<div>
-					<SortArticles setSortBy={setSortBy} setOrder={setOrder} />
+					<SortArticles sortBy={sortBy} order={order} setSortBy={setSortBy} setOrder={setOrder} />
 				</div>
 				<article className="grid-container">
 					{articles.map((article) => {
