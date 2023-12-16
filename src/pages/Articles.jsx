@@ -3,77 +3,43 @@ import { getAllArticles } from "../components/utils";
 import { ArticleCard } from "../components/ArticleCard";
 import ReactPaginate from "react-paginate";
 import { SortArticles } from "../components/sortArticles";
-
+import { Pagination } from "../components/Pagination";
 export const Articles = ({ topic }) => {
 	const [articles, setArticles] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [page, setPage] = useState(1);
-	const [nextPage, setNextPage] = useState(2);
-	const [previousPage, setPreviousPage] = useState(0);
-  const [sortBy, setSortBy]=useState('')
-  const [order, setOrder] =useState('DESC')
-
+	const [sortBy, setSortBy] = useState("");
+	const [order, setOrder] = useState("DESC");
+	const [total, setTotal] = useState(0);
+	const [itemsPerPage] = useState(10);
+	const [apiErr, setApiErr] = useState(false);
 
 	useEffect(() => {
-    setIsLoading(true)
+		setIsLoading(true);
 		getAllArticles(page, topic, sortBy, order)
-			.then(({ articles }) => {
-				setNextPage(page + 1);
-				setPreviousPage(page - 1);
-				setArticles(articles);
+			.then((data) => {
+				setTotal(data.totalCount);
+				setArticles(data.articles);
 				setIsLoading(false);
 			})
-			.catch((e) => {
+			.catch((err) => {
 				setIsLoading(false);
-				return (
-					<section>
-						<p className="show">Couldn't load the articles. Try again!</p>
-					</section>
-				);
+				if (!err.response) setApiErr(err.message);
+				setIsLoading(false);
+				setApiErr(err.response.data.msg);
 			});
 	}, [page, topic, sortBy, order]);
 
-	const handlePageClick = (e) => {
-		console.log("click", e);
-		if (!e.nextSelectedPage) {
-			setIsLoading(true);
-			setPage(1);
-		}
-		if (e.isNext && page < 4) {
-			setIsLoading(true);
-			setPage(nextPage);
-		} else if (e.isNext && page != "number" && !e.nextSelectedPage) {
-			setIsLoading(true);
-			setPage(2);
-		} else if (e.isNext && page === 4) {
-			setPage(4);
-		} else if (e.isPrevious && page > 1) {
-			setIsLoading(true);
-			setPage(previousPage);
-		} else if (page) {
-			setIsLoading(true);
-			setPage(e.nextSelectedPage + 1);
-		}
-	};
-
 	if (isLoading) {
 		return <section className="loading-screen">results are loading</section>;
+	} else if (apiErr) {
+		return <Error message={apiErr} />;
 	} else
 		return (
 			<>
 				<div>
-					<SortArticles  setSortBy={setSortBy} setOrder={setOrder}/>
+					<SortArticles setSortBy={setSortBy} setOrder={setOrder} />
 				</div>
-				<ReactPaginate
-					containerClassName="paginate"
-					breakLabel="..."
-					nextLabel="Next >"
-					onClick={handlePageClick}
-					activeClassName="active"
-					previousLabel="< previous"
-					renderOnZeroPageCount={null}
-				/>
-
 				<article className="grid-container">
 					{articles.map((article) => {
 						return (
@@ -83,6 +49,12 @@ export const Articles = ({ topic }) => {
 						);
 					})}
 				</article>
+				<Pagination
+					itemsPerPage={itemsPerPage}
+					currentPage={page}
+					setCurrentPage={setPage}
+					total={total}
+				/>
 			</>
 		);
 };

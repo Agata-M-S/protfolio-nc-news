@@ -26,7 +26,6 @@ export const SingleArticle = () => {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				console.log(err);
 				if (!err.response) setApiErr(err.message);
 				setIsLoading(false);
 				setApiErr(err.response.data.msg);
