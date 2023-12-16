@@ -7,6 +7,26 @@
 body {
 	background-color: #4a4e69;
 }
+@media (max-width: 500px){
+  .grid-container {
+    display: grid;
+    list-style: none;
+    grid-template-columns: repeat(2, minmax(20vw, 1fr));
+    row-gap: 10px;
+    column-gap: 10px;
+    padding: 10px;
+  }
+}
+@media (min-width: 500px){ 
+    .grid-container {
+      display: grid;
+      list-style: none;
+      grid-template-columns: repeat(3, minmax(20vw, 1fr));
+      row-gap: 10px;
+      column-gap: 10px;
+      padding: 10px;
+    }
+  }
 
 .nav-bar {
 	background-color: #9a8c98;
@@ -34,38 +54,32 @@ body {
 	margin-top: 10px;
 	border: 3px solid blue;
 }
-
-.grid-container {
-	display: grid;
-	list-style: none;
-	grid-template-columns: repeat(2, minmax(20vw, 1fr));
-	row-gap: 10px;
-	column-gap: 10px;
-	padding: 10px;
+.nav-bar>a:hover{
+  text-shadow: 1px 1px 5px #22223B; 
 }
 a {
 	font-size: large;
-	color: #c9ada7;
-	text-shadow: 0px 1px 10px #22223b;
+	color: #22223B;
 	text-decoration: none;
 }
 a:hover {
-	text-shadow: 1px 1px 5px #e56b6f;
+	text-shadow: 1px 1px 5px #c9ada7;
 }
 .grid-container > li {
 	padding-top: 15px;
-	background-color: #9a8c98;
+	background-color: #c9ada79e ;
 	border-radius: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+  /* color:#22223b */
 }
 .grid-container > li > p {
   margin: 5px auto 0px auto;
   padding-top: 5px;
 	display: inline-block;
 	width: 100%;
-	border-top: 1px solid #C9ADA7 ;
+	/* border-top: 1px solid #22223B ; */
 
   
 }
@@ -109,26 +123,42 @@ img {
 .box-div {
 	display: flex;
 	flex-direction: column;
-	padding: 5px;
-	border: 1px solid blue;
+	padding: 10px;
+	border: 1px solid #22223B;
+  box-shadow: inset  1px 0px 50px 1px #22223b61;
 	margin: 15px;
+  color: #C9ADA7;
+ 
 }
-
+.box-div>p{
+  color: #9a8c98;
+}
+.box-div>div>svg{
+  color: #9a8c98;
+}
+svg{
+  font-size: large;
+  color: #22223B;
+}
 .vote-icon-default {
 	color: rgb(255, 255, 255);
   color: #9a8c98;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .vote-icon-clicked {
-	color: red;
+	color: #22223B;
+  font-size: 1.2em;
 }
 
 .vote-icon-default:hover,
 .vote-icon-clicked:hover {
-	background-color: rgb(94, 68, 86);
+  cursor: pointer;
+	/* background-color: rgb(94, 68, 86); */
 	border-radius: 50%;
-	box-shadow: 0px 1px 10px 2px rgb(94, 68, 86);
+	box-shadow: 0px 1px 10px 2px  #22223B;
+  text-shadow: 1px 1px 5px #22223B; 
 }
+
 
 .hidden {
 	display: none;
@@ -140,18 +170,63 @@ img {
 }
 
 textarea {
+  color: #C9ADA7;
+  border: none;
+  border-radius: 5px;
+  background-color: #22223b91;
+  padding: 5px;
 	resize: none;
 	min-width: 50vw;
 	min-height: 20vh;
 }
 .flex {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
+  padding: 10px;
 }
 .flex > p {
-	margin: 0;
+	margin: 0 10px;
 }
-
+p.show{
+  /* margin-left: 10px; */
+  align-self: center;
+  /* justify-self: center; */
+  text-transform: capitalize;
+  color: #C9ADA7;
+  text-decoration: underline;
+}
+p {
+  color: #383b54;
+}
+article{
+  margin: auto;
+  padding: 10px;
+  color: #c9ada7;
+}
+article>p{
+  text-align: justify;
+  color: #F2E9E4;
+  line-height: 1.5em;
+  font-size:  1.2em;
+}
+article>h1{
+  margin-bottom: 5px;
+  font-size: 2rem;
+}
+article>div{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+article>div>p{
+  font-weight: bold;
+  color: #c9ada7;
+  margin: 0;
+}
+article>span{
+  font-size: 1.3em;
+  margin: 2px;
+}
 select,
 option {
 	color: #9a8c98;
@@ -184,7 +259,9 @@ select:hover {
 	background-color: #9a8c98;
   justify-content: space-around;
 }
-
+.topic-grid> div:hover{
+  box-shadow: 1px 1px 10px #22223B;
+}
 .topic-grid > div > p {
 	text-transform: uppercase;
   margin: 0;
@@ -211,3 +288,23 @@ label {
   color: #C9ADA7;
 }
 
+button{
+  cursor: pointer;
+  color: #c9ada7;
+  background-color: #22223bae;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 1px solid #22223B;
+  box-shadow: inset 1px 1px 1px #313157, 1px 1px 1px #22223B;
+}
+button[disabled]{
+  cursor: default;
+  background-color: #3d3d46be;
+}
+
+ul>li{
+  list-style: none;
+}
+ul{
+  padding: 0;
+}

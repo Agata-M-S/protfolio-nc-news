@@ -43,7 +43,7 @@ export const SingleArticle = () => {
 					<h1>{singleArticle.title}</h1>
 					<div>
 						<p>Topic: {singleArticle.topic}</p>
-						<time> {formatDate(singleArticle.created_at)}</time>
+						<p> {formatDate(singleArticle.created_at)}</p>
 					</div>
 					<p>{singleArticle.body}</p>
 					<BiSolidUpvote
