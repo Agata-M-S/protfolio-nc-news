@@ -28,8 +28,11 @@ export const getArticleById= (id) =>{
   })
 }
 
-export const getCommentsByArticleId = (id)=>{
-  return api.get(`/articles/${id}/comments`)
+export const getCommentsByArticleId = (id, page)=>{
+ const params ={
+    page: page
+  }
+  return api.get(`/articles/${id}/comments`, {params})
   .then(res =>{
     return res.data
   }).catch(err =>{console.log(err);})

@@ -20,7 +20,6 @@ export const Users = () => {
 				defaultValue={""}
 				form="users"
 				onChange={(e) => {
-					console.log(e);
 					setClassName("show");
 					setUser(e.target.value);
 				}}

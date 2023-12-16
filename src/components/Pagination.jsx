@@ -1,14 +1,14 @@
+import { useState } from "react";
+
 export const Pagination = ({
 	currentPage,
 	itemsPerPage,
 	setCurrentPage,
 	total,
 }) => {
-	const indexOfLastItem = currentPage * itemsPerPage;
-	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-	const numPages = Math.ceil(total / itemsPerPage);
-	console.log(numPages);
-	console.log(itemsPerPage);
+  const [numPages]= useState( Math.ceil(total / itemsPerPage))
+	// const numPages =;
+	
 
 	const pageNumbers = [...Array(numPages + 1).keys()].slice(1);
   const nextPage = () => {

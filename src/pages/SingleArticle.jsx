@@ -17,11 +17,13 @@ export const SingleArticle = () => {
 	const [errorClass, setErrorClass] = useState("hidden");
 	const [reload, setReload] = useState(false);
 	const [apiErr, setApiErr] = useState(false);
+  const[commentCount, setCommentCount]=useState()
 
 	useEffect(() => {
 		setReload(false);
 		getArticleById(article_id)
 			.then(({ article }) => {
+        setCommentCount(article.comment_count)
 				setSingleArticle(article);
 				setIsLoading(false);
 			})
@@ -112,10 +114,12 @@ export const SingleArticle = () => {
 					<LiaComments /> <span>{singleArticle.comment_count}</span>
 				</article>
 				<Comments
+        total = {commentCount}
 					article_id={article_id}
 					setSingleArticle={setSingleArticle}
 					singleArticle={singleArticle}
 					setReload={setReload}
+          reload={reload}
 				/>
 				<Link to={`/articles`}>
 					<button>Back to articles</button>
