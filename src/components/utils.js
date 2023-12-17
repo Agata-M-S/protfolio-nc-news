@@ -38,9 +38,6 @@ export const getCommentsByArticleId = (id, page) => {
 		.then((res) => {
 			return res.data;
 		})
-		.catch((err) => {
-			console.log(err);
-		});
 };
 
 export const patchVotes = (id, num) => {

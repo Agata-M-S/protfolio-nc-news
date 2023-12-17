@@ -23,7 +23,8 @@ export const Comments = ({ article_id, setReload, total }) => {
 				setComments(data.comments);
 				setIsLoading(false);
 			})
-			.catch(() => {
+			.catch((e) => {
+        console.log(e);
 				setIsLoading(false);
 				setErrorClass("show");
 			});
@@ -31,7 +32,7 @@ export const Comments = ({ article_id, setReload, total }) => {
 	if (isLoading) {
 		return <section className="loading-screen">comments are loading</section>;
 	}
-
+else
 	return (
 		<>
 			<CommentAdder
