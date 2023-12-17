@@ -5,12 +5,12 @@ export const Footer = () => {
 			<Link to={"/"}>
 						<p
 					onClick={() => {
-						const relElem = document.getElementById("about-me");
+						const relElem = document.getElementById("about");
 						relElem.scrollIntoView;
 						relElem.scrollIntoView({ behavior: "smooth" });
 					}}
 				>
-					About me
+					About 
 				</p>
 			</Link>
 		</footer>

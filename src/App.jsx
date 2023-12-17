@@ -14,11 +14,11 @@ import { Footer } from "./components/Footer";
 function App() {
 	return (
 		<>
-		<div className="top">
-		  	<Header />
-  			<NavBar />
-		</div>
-      <Footer />
+			<div className="top">
+				<Header />
+				<NavBar />
+			</div>
+			<Footer />
 			<UserProvider>
 				<UsersBar />
 				<Routes>
@@ -26,7 +26,7 @@ function App() {
 					<Route path="/articles" element={<Articles />} />
 					<Route path="/articles/:article_id" element={<SingleArticle />} />
 					<Route path="/topics" element={<Topics />} />
-          <Route path="/*" element={<Error message='page not found'/>} />
+					<Route path="/*" element={<Error message="page not found" />} />
 				</Routes>
 			</UserProvider>
 		</>
