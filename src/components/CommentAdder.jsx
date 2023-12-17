@@ -43,7 +43,6 @@ export const CommentAdder = ({ article_id, setComments, setReload }) => {
 				.catch((err) => {
 					setApiErr(err.response.msg);
 					setIsPosting(false);
-					console.log(err.response, "<<<<<");
 				});
 		}
 	};
@@ -71,7 +70,6 @@ export const CommentAdder = ({ article_id, setComments, setReload }) => {
 								setApiErr("you need to be logged in to post a comment");
 							} else if (!input) {
 								setApiErr("you can't post an empty comment");
-								console.log("no input");
 							}
 						}}
 						onBlur={() => {

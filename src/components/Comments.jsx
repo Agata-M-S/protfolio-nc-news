@@ -6,33 +6,33 @@ import { CommentAdder } from "./CommentAdder";
 import { DeleteComment } from "./DeleteComment";
 import { useContext } from "react";
 import { UserContext } from "../contexts/userContext.jsx";
+import { Pagination } from "./Pagination.jsx";
 
-export const Comments = ({
-	article_id,
-	setReload /*setSingleArticle, singleArticle*/,
-}) => {
+export const Comments = ({ article_id, setReload, total }) => {
 	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorClass, setErrorClass] = useState("hidden");
 	const { user } = useContext(UserContext);
+	const [itemsPerPage] = useState(3);
+	const [page, setPage] = useState(1);
 
 	useEffect(() => {
 		setErrorClass("hidden");
-		getCommentsByArticleId(article_id)
+		getCommentsByArticleId(article_id, page)
 			.then((data) => {
 				setComments(data.comments);
 				setIsLoading(false);
 			})
-			.catch(() => {
+			.catch((e) => {
+        console.log(e);
 				setIsLoading(false);
 				setErrorClass("show");
 			});
-	}, [comments]);
-
+	}, [page, total]);
 	if (isLoading) {
 		return <section className="loading-screen">comments are loading</section>;
 	}
-
+else
 	return (
 		<>
 			<CommentAdder
@@ -40,6 +40,7 @@ export const Comments = ({
 				article_id={article_id}
 				comments={comments}
 				setComments={setComments}
+				total={total}
 			/>
 			<ul>
 				<p className={errorClass}>Can't load comments</p>
@@ -70,6 +71,14 @@ export const Comments = ({
 					);
 				})}
 			</ul>
+			{total == 0 ? null:
+      <Pagination
+				itemsPerPage={itemsPerPage}
+				currentPage={page}
+				setCurrentPage={setPage}
+				comments={comments}
+				total={total}
+			/>  }
 		</>
 	);
 };

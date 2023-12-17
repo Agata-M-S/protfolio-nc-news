@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllArticles } from "../components/utils";
 import { ArticleCard } from "../components/ArticleCard";
-import ReactPaginate from "react-paginate";
 import { SortArticles } from "../components/sortArticles";
 import { Pagination } from "../components/Pagination";
 export const Articles = ({ topic }) => {
