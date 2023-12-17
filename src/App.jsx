@@ -9,12 +9,16 @@ import { UserProvider } from "./contexts/userContext";
 import { UsersBar } from "./components/UsersBar";
 import { Topics } from "./pages/Topics";
 import { Error } from "./components/Error";
+import { Footer } from "./components/Footer";
 
 function App() {
 	return (
 		<>
-			<Header />
-			<NavBar />
+		<div className="top">
+		  	<Header />
+  			<NavBar />
+		</div>
+      <Footer />
 			<UserProvider>
 				<UsersBar />
 				<Routes>
