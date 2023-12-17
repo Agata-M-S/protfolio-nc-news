@@ -4,7 +4,7 @@ import { postComment } from "./utils.js";
 import { UserContext } from "../contexts/userContext.jsx";
 import { Error } from "./Error.jsx";
 
-export const CommentAdder = ({ article_id, setComments, setReload, setTotalComms }) => {
+export const CommentAdder = ({ article_id, setComments, setReload }) => {
 	const [input, setInput] = useState("");
 	const { user } = useContext(UserContext);
 	const [apiErr, setApiErr] = useState(null);
